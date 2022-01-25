@@ -1,14 +1,14 @@
 import {homedir} from "os";
 import * as path from "path";
 import {readFileSync} from "fs";
-import {parse} from "yaml";
+import {parse} from "rolls-agent/node_modules/yaml";
 
 // Suppress noisy YAML warning
 process.env.YAML_SILENCE_WARNINGS = "true";
 
-const defaultChiaRoot = path.resolve(homedir(), ".chia", "mainnet");
+const defaultChiaRoot = path.resolve(homedir(), ".rolls", "mainnet");
 
-export const chiaRoot = process.env.CHIA_ROOT ? path.resolve(process.env.CHIA_ROOT) : defaultChiaRoot;
+export const chiaRoot = process.env.rolls_ROOT ? path.resolve(process.env.rolls_ROOT) : defaultChiaRoot;
 
 // config 
 export const configPath = path.resolve(chiaRoot, "config", "config.yaml");
@@ -90,7 +90,7 @@ export function resolveFromChiaRoot(pathFromChiaRoot: string[]){
 }
 
 /**
- * Get path string resolved based on CHIA_ROOT dir.
+ * Get path string resolved based on rolls_ROOT dir.
  * 
  * @param {string} yPath - Canonical path for yaml. See @description.
  * @param {string?} configFilePath - If you want to specify path for config file, use this param.

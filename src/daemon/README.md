@@ -1,6 +1,6 @@
 # Daemon
 
-A websocket client for connecting to chia daemon.  
+A websocket client for connecting to rolls daemon.  
 This `Daemon` class is a singleton to prevent multiple useless connections being active at once.
 
 Please note that you cannot create multiple daemon clients connecting to different url in single nodejs process.  
@@ -8,21 +8,21 @@ If you need to do it, please let me know. I'll check whether its merit is consid
 
 You can generate this `Daemon` client as below.
 ```js
-const {getDaemon} = require("chia-agent");
+const {getDaemon} = require("rolls-agent");
 const daemon = getDaemon();
 ```
 
 ## daemon.connect
 
-Connect to chia daemon via websocket.
+Connect to rolls daemon via websocket.
 
-If you don't pass any argument, it tries to connect to an url specified in chia configuration file.  
-(Note: `chia-agent` cares environment variable `CHIA_ROOT`)
+If you don't pass any argument, it tries to connect to an url specified in rolls configuration file.  
+(Note: `rolls-agent` cares environment variable `rolls_ROOT`)
 ```js
 await daemon.connect();
 ```
 
-You can specify chia daemon url to connect to.
+You can specify rolls daemon url to connect to.
 ```js
 await daemon.connect("wss://hostname:port");
 ```
@@ -48,19 +48,19 @@ Start to monitor message channel via websocket.
 
 ```js
 await daemon.subscribe(service);
-// service: "wallet_ui" or "chia_plotter"
+// service: "wallet_ui" or "rolls_plotter"
 ```
 
 `wallet_ui`  
 Monitor messages sent to update GUI like connecting nodes, last attempted proof, wallet status, etc.
 
-`chia_plotter`  
+`rolls_plotter`  
 Monitor plot creation progress.
 
 Messages can be monitored after message event listener is added to daemon instance.
 ```js
 // Subscribe message from `origin`.
-// origin is "chia_wallet", "chia_farmer", "chia_full_node", "chia_plotter", etc.
+// origin is "rolls_wallet", "rolls_farmer", "rolls_full_node", "rolls_plotter", etc.
 // If origin is set to `undefined` or "all", all incoming messages are passed to the listener function.
 daemon.addMessageListener(origin, (message) => {
   // Content of receiving message depends on origin and command.

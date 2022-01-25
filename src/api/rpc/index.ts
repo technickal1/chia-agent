@@ -6,9 +6,9 @@ import type {
   TGetHarvestersResponse,
   TSetPayoutInstructionsResponse,
   TGetPoolStateResponse,
-} from "./farmer/index";
+} from "rolls-agent/src/api/rpc/farmer";
 export {
-  chia_farmer_service,
+  rolls_farmer_service,
   TGetRewardTargetRequest,
   TGetRewardTargetResponse,
   TGetSignagePointRequest,
@@ -30,7 +30,7 @@ export {
   get_harvesters,
   set_pool_payout_instructions,
   get_pool_state,
-} from "./farmer/index";
+} from "rolls-agent/src/api/rpc/farmer";
 import type {
   TGetAdditionsAndRemovalsResponse,
   TGetAllMempoolItemsResponse,
@@ -51,9 +51,9 @@ import type {
   TGetNetworkSpaceResponse,
   TGetUnfinishedBlockHeadersResponse,
   TPushTxResponse,
-} from "./full_node/index";
+} from "rolls-agent/src/api/rpc/full_node";
 export {
-  chia_full_node_service,
+  rolls_full_node_service,
   TGetAdditionsAndRemovalsRequest,
   TGetAdditionsAndRemovalsResponse,
   TGetAllMempoolItemsRequest,
@@ -111,7 +111,7 @@ export {
   get_network_space,
   get_unfinished_block_headers,
   push_tx,
-} from "./full_node/index";
+} from "rolls-agent/src/api/rpc/full_node";
 
 import type {
   TAddPlotDirectoryResponse,
@@ -120,9 +120,9 @@ import type {
   TGetPlotsResponse,
   TRefreshPlotsResponse,
   TRemovePlotDirectoryResponse,
-} from "./harvester/index";
+} from "rolls-agent/src/api/rpc/harvester";
 export {
-  chia_harvester_service,
+  rolls_harvester_service,
   TAddPlotDirectoryRequest,
   TAddPlotDirectoryResponse,
   TDeletePlotRequest,
@@ -141,10 +141,10 @@ export {
   get_plots,
   refresh_plots,
   remove_plot_directory,
-} from "./harvester/index";
+} from "rolls-agent/src/api/rpc/harvester";
 
 import type {
-  chia_wallet_service,
+  rolls_wallet_service,
   TAddKeyResponse,
   TAddRateLimitedFundsResponse,
   TCancelTradeResponse,
@@ -195,9 +195,9 @@ import type {
   TSendClawbackTransactionResponse,
   TSendTransactionResponse,
   TSendTransactionMultiResponse, TPwJoinPoolResponse, TPwSelfPoolResponse,
-} from "./wallet/index";
+} from "rolls-agent/src/api/rpc/wallet";
 export {
-  chia_wallet_service,
+  rolls_wallet_service,
   TAddKeyRequest,
   TAddKeyResponse,
   TAddRateLimitedFundsRequest,
@@ -355,7 +355,7 @@ export {
   send_clawback_transaction,
   send_transaction,
   send_transaction_multi,
-} from "./wallet/index";
+} from "rolls-agent/src/api/rpc/wallet";
 
 
 

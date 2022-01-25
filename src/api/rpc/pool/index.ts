@@ -1,5 +1,5 @@
-import {str, uint64} from "../../chia/types/_python_types_";
-import {TRPCAgent} from "../../../rpc";
+import {str, uint64} from "rolls-agent/src/api/rolls/types/_python_types_";
+import {TRPCAgent} from "rolls-agent/src/rpc";
 import {
   ErrorResponse,
   GetFarmerResponse,
@@ -10,8 +10,8 @@ import {
   PostPartialResponse,
   PutFarmerRequest,
   PutFarmerResponse
-} from "../../chia/protocols/pool_protocol";
-import {FarmerRecord} from "../../chia/pool/store";
+} from "rolls-agent/src/api/rolls/protocols/pool_protocol";
+import {FarmerRecord} from "rolls-agent/src/api/rolls/pool/store";
 
 
 

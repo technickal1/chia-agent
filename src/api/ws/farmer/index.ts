@@ -1,14 +1,14 @@
-import {ProofOfSpace} from "../../chia/types/blockchain_format/proof_of_space";
-import {NewSignagePoint} from "../../chia/protocols/farmer_protocol";
-import {bytes32} from "../../chia/types/blockchain_format/sized_bytes";
-import {uint32, uint64} from "../../chia/types/_python_types_";
-import {TDaemon} from "../../../daemon/index";
-import {GetMessageType, wallet_ui_service} from "../../types";
-import {WsMessage} from "../index";
-import {TGetHarvestersResponse} from "../../rpc/farmer/index";
+import {ProofOfSpace} from "rolls-agent/src/api/rolls/types/blockchain_format/proof_of_space";
+import {NewSignagePoint} from "rolls-agent/src/api/rolls/protocols/farmer_protocol";
+import {bytes32} from "rolls-agent/src/api/rolls/types/blockchain_format/sized_bytes";
+import {uint32, uint64} from "rolls-agent/src/api/rolls/types/_python_types_";
+import {TDaemon} from "rolls-agent/src/daemon";
+import {GetMessageType, wallet_ui_service} from "rolls-agent/src/api/types";
+import {WsMessage} from "rolls-agent/src/api/ws";
+import {TGetHarvestersResponse} from "rolls-agent/src/api/rpc/farmer";
 
-export const chia_farmer_service = "chia_farmer";
-export type chia_farmer_service = typeof chia_farmer_service;
+export const rolls_farmer_service = "rolls_farmer";
+export type rolls_farmer_service = typeof rolls_farmer_service;
 
 export const new_farming_info_command = "new_farming_info";
 export type new_farming_info_command = typeof new_farming_info_command;
@@ -22,14 +22,14 @@ export type TNewFarmingInfoBroadCast = {
     timestamp: uint64;
   }
 };
-export async function on_new_farming_info(daemon: TDaemon, callback: (e: GetMessageType<chia_farmer_service, new_farming_info_command, TNewFarmingInfoBroadCast>) => unknown){
+export async function on_new_farming_info(daemon: TDaemon, callback: (e: GetMessageType<rolls_farmer_service, new_farming_info_command, TNewFarmingInfoBroadCast>) => unknown){
   await daemon.subscribe(wallet_ui_service);
   const messageListener = (e: WsMessage) => {
-    if(e.origin === chia_farmer_service && e.command === new_farming_info_command){
+    if(e.origin === rolls_farmer_service && e.command === new_farming_info_command){
       callback(e);
     }
   };
-  return daemon.addMessageListener(chia_farmer_service, messageListener);
+  return daemon.addMessageListener(rolls_farmer_service, messageListener);
 }
 
 export const new_signage_point_command = "new_signage_point";
@@ -38,38 +38,38 @@ export type TNewSignagePointBroadCast = {
   proofs: ProofOfSpace[];
   signage_point: NewSignagePoint;
 };
-export async function on_new_signage_point(daemon: TDaemon, callback: (e: GetMessageType<chia_farmer_service, new_signage_point_command, TNewSignagePointBroadCast>) => unknown){
+export async function on_new_signage_point(daemon: TDaemon, callback: (e: GetMessageType<rolls_farmer_service, new_signage_point_command, TNewSignagePointBroadCast>) => unknown){
   await daemon.subscribe(wallet_ui_service);
   const messageListener = (e: WsMessage) => {
-    if(e.origin === chia_farmer_service && e.command === new_signage_point_command){
+    if(e.origin === rolls_farmer_service && e.command === new_signage_point_command){
       callback(e);
     }
   };
-  return daemon.addMessageListener(chia_farmer_service, messageListener);
+  return daemon.addMessageListener(rolls_farmer_service, messageListener);
 }
 
 export const new_plots_command = "get_harvesters"; // not "new_plots" for now.
 export type new_plots_command = typeof new_plots_command;
 export type TNewPlotsBroadCast = TGetHarvestersResponse;
-export async function on_new_plots(daemon: TDaemon, callback: (e: GetMessageType<chia_farmer_service, new_plots_command, TNewPlotsBroadCast>) => unknown){
+export async function on_new_plots(daemon: TDaemon, callback: (e: GetMessageType<rolls_farmer_service, new_plots_command, TNewPlotsBroadCast>) => unknown){
   await daemon.subscribe(wallet_ui_service);
   const messageListener = (e: WsMessage) => {
-    if(e.origin === chia_farmer_service && e.command === new_plots_command){
+    if(e.origin === rolls_farmer_service && e.command === new_plots_command){
       callback(e);
     }
   };
-  return daemon.addMessageListener(chia_farmer_service, messageListener);
+  return daemon.addMessageListener(rolls_farmer_service, messageListener);
 }
 
 // Whole commands for the service
-export type chia_farmer_commands = new_farming_info_command | new_signage_point_command | new_plots_command;
+export type rolls_farmer_commands = new_farming_info_command | new_signage_point_command | new_plots_command;
 export type TChiaFarmerBroadcast = TNewFarmingInfoBroadCast | TNewSignagePointBroadCast | TNewPlotsBroadCast;
-export async function on_message_from_farmer(daemon: TDaemon, callback: (e: GetMessageType<chia_farmer_service, chia_farmer_commands, TChiaFarmerBroadcast>) => unknown){
+export async function on_message_from_farmer(daemon: TDaemon, callback: (e: GetMessageType<rolls_farmer_service, rolls_farmer_commands, TChiaFarmerBroadcast>) => unknown){
   await daemon.subscribe(wallet_ui_service);
   const messageListener = (e: WsMessage) => {
-    if(e.origin === chia_farmer_service){
+    if(e.origin === rolls_farmer_service){
       callback(e);
     }
   };
-  return daemon.addMessageListener(chia_farmer_service, messageListener);
+  return daemon.addMessageListener(rolls_farmer_service, messageListener);
 }

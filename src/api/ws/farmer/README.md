@@ -1,18 +1,18 @@
 # Websocket Message from Farmer service
 
 ### `on_message_from_farmer`
-Capture all broadcast messages coming from `chia_farmer` service.
+Capture all broadcast messages coming from `rolls_farmer` service.
 
 #### Usage
 You need to create Websocket connection before subscribing websocket messages.
 ```js
-const {getDaemon} = require("chia-agent");
-const {on_message_from_farmer} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_message_from_farmer} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon(); // This is the websocket connection handler
 await daemon.connect(); // connect to local daemon using config file.
 
-// Capture all messages from `chia_farmer`
+// Capture all messages from `rolls_farmer`
 const unsubscribe = await on_message_from_farmer(daemon, (event) => {
   console.log(e.data);
 
@@ -27,12 +27,12 @@ const unsubscribe = await on_message_from_farmer(daemon, (event) => {
 ---
 
 ### `on_new_farming_info`
-Capture broadcast message of command `new_farming_info` from `chia_farmer` service.
+Capture broadcast message of command `new_farming_info` from `rolls_farmer` service.
 
 #### Usage
 ```typescript
-const {getDaemon} = require("chia-agent");
-const {on_new_farming_info} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_new_farming_info} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon();
 await daemon.connect();
@@ -47,7 +47,7 @@ unsubscribe(); // Stop subscribing messages
 #### event:
 ```typescript
 {
-  origin: "chia_farmer";
+  origin: "rolls_farmer";
   command: "new_farming_info";
   ack: boolean;
   data: /*See below*/;
@@ -72,12 +72,12 @@ unsubscribe(); // Stop subscribing messages
 ---
 
 ### `on_new_signage_point`
-Capture broadcast message of command `new_signage_point` from `chia_farmer` service.
+Capture broadcast message of command `new_signage_point` from `rolls_farmer` service.
 
 #### Usage
 ```typescript
-const {getDaemon} = require("chia-agent");
-const {on_new_signage_point} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_new_signage_point} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon();
 await daemon.connect();
@@ -92,7 +92,7 @@ unsubscribe(); // Stop subscribing messages
 #### event:
 ```typescript
 {
-  origin: "chia_farmer";
+  origin: "rolls_farmer";
   command: "new_signage_point";
   ack: boolean;
   data: /*See below*/;
@@ -108,20 +108,20 @@ unsubscribe(); // Stop subscribing messages
 }
 ```
 For content of `ProofOfSpace`,  
-see https://github.com/Chia-Mine/chia-agent/blob/main/src/api/chia/types/blockchain_format/proof_of_space.ts
+see https://github.com/Chia-Mine/rolls-agent/blob/main/src/api/chia/types/blockchain_format/proof_of_space.ts
 
 For content of `NewSignagePoint`  
-see https://github.com/Chia-Mine/chia-agent/blob/main/src/api/chia/protocols/farmer_protocol.ts
+see https://github.com/Chia-Mine/rolls-agent/blob/main/src/api/chia/protocols/farmer_protocol.ts
 
 ---
 
 ### `on_new_plots`
-Capture broadcast message of command `on_new_plots` from `chia_farmer` service.
+Capture broadcast message of command `on_new_plots` from `rolls_farmer` service.
 
 #### Usage
 ```typescript
-const {getDaemon} = require("chia-agent");
-const {on_new_plots} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_new_plots} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon();
 await daemon.connect();
@@ -136,7 +136,7 @@ unsubscribe(); // Stop subscribing messages
 #### event:
 ```typescript
 {
-  origin: "chia_farmer";
+  origin: "rolls_farmer";
   command: "get_harvesters";
   ack: boolean;
   data: /*See below*/;
@@ -151,4 +151,4 @@ unsubscribe(); // Stop subscribing messages
 }
 ```
 For content of `HarvesterObject`,  
-see https://github.com/Chia-Mine/chia-agent/blob/main/src/api/chia/rpc/farmer/index.ts
+see https://github.com/Chia-Mine/rolls-agent/blob/main/src/api/chia/rpc/farmer/index.ts

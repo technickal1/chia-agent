@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import {getDaemon} from "../daemon/index";
-import {setLogLevel} from "../logger";
-import {on_new_farming_info} from "../api/ws/farmer/index";
+import {getDaemon} from "rolls-agent/src/daemon";
+import {setLogLevel} from "rolls-agent/src/logger";
+import {on_new_farming_info} from "rolls-agent/src/api/ws/farmer";
 
 setLogLevel("error");
 
-const exeCommand = "npx chia-agent"
+const exeCommand = "npx rolls-agent"
 const argv = process.argv.slice(2);
 const usage = `Usage:
 ${exeCommand} farm monitor

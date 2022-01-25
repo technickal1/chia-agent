@@ -1,18 +1,18 @@
 # Websocket Message from Wallet service
 
 ### `on_message_from_wallet`
-Capture all broadcast messages coming from `chia_wallet` service.
+Capture all broadcast messages coming from `rolls_wallet` service.
 
 #### Usage
 You need to create Websocket connection before subscribing websocket messages.
 ```js
-const {getDaemon} = require("chia-agent");
-const {on_message_from_wallet} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_message_from_wallet} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon(); // This is the websocket connection handler
 await daemon.connect(); // connect to local daemon using config file.
 
-// Capture all messages from `chia_harvester`
+// Capture all messages from `rolls_harvester`
 const unsubscribe = await on_message_from_wallet(daemon, (event) => {
   console.log(e.data);
 
@@ -27,12 +27,12 @@ const unsubscribe = await on_message_from_wallet(daemon, (event) => {
 ---
 
 ### `on_state_changed_of_wallet`
-Capture broadcast message of command `state_changed` from `chia_wallet` service.
+Capture broadcast message of command `state_changed` from `rolls_wallet` service.
 
 #### Usage
 ```typescript
-const {getDaemon} = require("chia-agent");
-const {on_state_changed_of_wallet} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_state_changed_of_wallet} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon();
 await daemon.connect();
@@ -47,7 +47,7 @@ unsubscribe(); // Stop subscribing messages
 #### event:
 ```typescript
 {
-  origin: "chia_wallet";
+  origin: "rolls_wallet";
   command: "state_changed";
   ack: boolean;
   data: /*See below*/;

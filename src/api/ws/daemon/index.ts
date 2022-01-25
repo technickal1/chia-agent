@@ -1,11 +1,11 @@
 // The daemon service currently does not provide state_change event as of v1.1.5.
-import {GetMessageType, wallet_ui_service} from "../../types";
-import {TDaemon} from "../../../daemon/index";
-import {bool, int, None, Optional, str, True} from "../../chia/types/_python_types_";
-import {WsMessage} from "../index";
-import {chiapos_install_info} from "../../chia/plotters/chiapos";
-import {bladebit_install_info} from "../../chia/plotters/bladebit";
-import {madmax_install_info} from "../../chia/plotters/maxmax";
+import {GetMessageType, wallet_ui_service} from "rolls-agent/src/api/types";
+import {TDaemon} from "rolls-agent/src/daemon";
+import {bool, int, None, Optional, str, True} from "rolls-agent/src/api/rolls/types/_python_types_";
+import {WsMessage} from "rolls-agent/src/api/ws";
+import {chiapos_install_info} from "rolls-agent/src/api/rolls/plotters/chiapos";
+import {bladebit_install_info} from "rolls-agent/src/api/rolls/plotters/bladebit";
+import {madmax_install_info} from "rolls-agent/src/api/rolls/plotters/maxmax";
 
 export const daemon_service = "daemon";
 export type daemon_service = typeof daemon_service;
@@ -24,8 +24,8 @@ export async function ping(daemon: TDaemon) {
 
 
 
-export type TService = "chia"|"chia_wallet"|"chia_full_node"|"chia_harvester"|"chia_farmer"
-  |"chia_introducer"|"chia_timelord"|"chia_timelord_launcher"|"chia_full_node_simulator";
+export type TService = "chia"|"rolls_wallet"|"rolls_full_node"|"rolls_harvester"|"rolls_farmer"
+  |"rolls_introducer"|"rolls_timelord"|"rolls_timelord_launcher"|"rolls_full_node_simulator";
 export const start_service_command = "start_service";
 export type start_service_command = typeof start_service_command;
 export type TStartServiceRequest = {
@@ -46,7 +46,7 @@ export async function start_service(daemon: TDaemon, data: TStartServiceRequest)
 export const start_plotting_command = "start_plotting";
 export type start_plotting_command = typeof start_plotting_command;
 export type TCommonPlottingParams = {
-  service: "chia_plotter";
+  service: "rolls_plotter";
   delay?: int; // delay in seconds. Default: 0
   parallel?: bool; // parallel or serialize. Default: False
   k: int; // size. 32, 33, ...
@@ -87,7 +87,7 @@ export type TStartPlottingRequest = TCommonPlottingParams & (TChiaPosParams | TB
 export type TStartPlottingResponse = {
   success: bool;
   ids: str[];
-  service_name: str; // should be 'chia_plotter'
+  service_name: str; // should be 'rolls_plotter'
 };
 export async function start_plotting(daemon: TDaemon, data: TStartPlottingRequest) {
   return daemon.sendMessage<GetMessageType<daemon_service, start_plotting_command, TStartPlottingResponse>>(daemon_service, start_plotting_command, data);

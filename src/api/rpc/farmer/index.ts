@@ -1,12 +1,12 @@
-import {ProofOfSpace} from "../../chia/types/blockchain_format/proof_of_space";
-import {bool, int, str, uint64, uint8} from "../../chia/types/_python_types_";
-import {bytes32} from "../../chia/types/blockchain_format/sized_bytes";
-import {TRPCAgent} from "../../../rpc/index";
-import {RespondPlots} from "../../chia/protocols/harvester_protocol";
-import {PoolState} from "../../chia/farmer/farmer";
+import {ProofOfSpace} from "rolls-agent/src/api/rolls/types/blockchain_format/proof_of_space";
+import {bool, int, str, uint64, uint8} from "rolls-agent/src/api/rolls/types/_python_types_";
+import {bytes32} from "rolls-agent/src/api/rolls/types/blockchain_format/sized_bytes";
+import {TRPCAgent} from "rolls-agent/src/rpc";
+import {RespondPlots} from "rolls-agent/src/api/rolls/protocols/harvester_protocol";
+import {PoolState} from "rolls-agent/src/api/rolls/farmer/farmer";
 
-export const chia_farmer_service = "chia_farmer";
-export type chia_farmer_service = typeof chia_farmer_service;
+export const rolls_farmer_service = "rolls_farmer";
+export type rolls_farmer_service = typeof rolls_farmer_service;
 
 export const get_signage_point_command = "get_signage_point";
 export type get_signage_point_command = typeof get_signage_point_command;
@@ -25,7 +25,7 @@ export type TGetSignagePointResponse = {
   proofs: [string, ProofOfSpace];
 };
 export async function get_signage_point(agent: TRPCAgent, params: TGetSignagePointRequest) {
-  return agent.sendMessage<TGetSignagePointResponse>(chia_farmer_service, get_signage_point_command, params);
+  return agent.sendMessage<TGetSignagePointResponse>(rolls_farmer_service, get_signage_point_command, params);
 }
 
 
@@ -37,7 +37,7 @@ export type TGetSignagePointsResponse = {
   signage_points: TGetSignagePointResponse[];
 };
 export async function get_signage_points(agent: TRPCAgent){
-  return agent.sendMessage<TGetSignagePointsResponse>(chia_farmer_service, get_signage_points_command);
+  return agent.sendMessage<TGetSignagePointsResponse>(rolls_farmer_service, get_signage_points_command);
 }
 
 
@@ -57,7 +57,7 @@ export type TGetRewardTargetResponse = {
   pool_target: str;
 };
 export async function get_reward_targets(agent: TRPCAgent, params: TGetRewardTargetRequest){
-  return agent.sendMessage<TGetRewardTargetResponse>(chia_farmer_service, get_reward_targets_command, params);
+  return agent.sendMessage<TGetRewardTargetResponse>(rolls_farmer_service, get_reward_targets_command, params);
 }
 
 
@@ -71,7 +71,7 @@ export type TSetRewardTargetRequest = {
 export type TSetRewardTargetResponse = {
 };
 export async function set_reward_targets(agent: TRPCAgent, params: TSetRewardTargetRequest){
-  return agent.sendMessage<TSetRewardTargetResponse>(chia_farmer_service, set_reward_targets_command, params);
+  return agent.sendMessage<TSetRewardTargetResponse>(rolls_farmer_service, set_reward_targets_command, params);
 }
 
 
@@ -84,7 +84,7 @@ export type TGetPoolStateResponse = {
   pool_state: PoolState[];
 };
 export async function get_pool_state(agent: TRPCAgent){
-  return agent.sendMessage<TSetRewardTargetResponse>(chia_farmer_service, get_pool_state_command);
+  return agent.sendMessage<TSetRewardTargetResponse>(rolls_farmer_service, get_pool_state_command);
 }
 
 
@@ -98,7 +98,7 @@ export type TSetPayoutInstructionsRequest = {
 export type TSetPayoutInstructionsResponse = {
 };
 export async function set_pool_payout_instructions(agent: TRPCAgent, params: TSetPayoutInstructionsRequest){
-  return agent.sendMessage<TSetPayoutInstructionsResponse>(chia_farmer_service, set_payout_instructions_command, params);
+  return agent.sendMessage<TSetPayoutInstructionsResponse>(rolls_farmer_service, set_payout_instructions_command, params);
 }
 
 
@@ -117,7 +117,7 @@ export type TGetHarvestersResponse = {
   harvesters: HarvesterObject[];
 };
 export async function get_harvesters(agent: TRPCAgent){
-  return agent.sendMessage<TGetHarvestersResponse>(chia_farmer_service, get_harvesters_command);
+  return agent.sendMessage<TGetHarvestersResponse>(rolls_farmer_service, get_harvesters_command);
 }
 
 
@@ -131,5 +131,5 @@ export type TGetPoolLinkResponse = {
   login_link: str;
 };
 export async function get_pool_login_link(agent: TRPCAgent, params: TGetPoolLinkRequest){
-  return agent.sendMessage<TGetPoolLinkResponse>(chia_farmer_service, get_pool_login_link_command, params);
+  return agent.sendMessage<TGetPoolLinkResponse>(rolls_farmer_service, get_pool_login_link_command, params);
 }

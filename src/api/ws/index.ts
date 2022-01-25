@@ -1,15 +1,15 @@
-import {GetMessageType} from "../types";
+import {GetMessageType} from "rolls-agent/src/api/types";
 import type {
-  chia_farmer_service,
+  rolls_farmer_service,
   new_farming_info_command,
   new_signage_point_command,
   new_plots_command,
   TNewFarmingInfoBroadCast,
   TNewSignagePointBroadCast,
   TNewPlotsBroadCast,
-} from "./farmer/index";
+} from "rolls-agent/src/api/ws/farmer";
 export {
-  chia_farmer_service,
+  rolls_farmer_service,
   TChiaFarmerBroadcast,
   TNewSignagePointBroadCast,
   TNewFarmingInfoBroadCast,
@@ -18,58 +18,58 @@ export {
   on_new_farming_info,
   on_new_signage_point,
   on_new_plots,
-} from "./farmer/index";
+} from "rolls-agent/src/api/ws/farmer";
 
 import type {
-  chia_full_node_service,
+  rolls_full_node_service,
   get_blockchain_state_command,
   TGetBlockchainStateBroadCast,
-} from "./full_node/index";
+} from "rolls-agent/src/api/ws/full_node";
 export {
-  chia_full_node_service,
+  rolls_full_node_service,
   TChiaFullNodeBroadcast,
   TGetBlockchainStateBroadCast,
   on_message_from_full_node,
   on_get_blockchain_state, 
-} from "./full_node/index";
+} from "rolls-agent/src/api/ws/full_node";
 
 import type {
-  chia_harvester_service,
+  rolls_harvester_service,
   get_plots_command,
   TGetPlotsBroadCast,
-} from "./harvester/index";
+} from "rolls-agent/src/api/ws/harvester";
 export {
-  chia_harvester_service,
+  rolls_harvester_service,
   TChiaHarvesterBroadcast,
   TGetPlotsBroadCast,
   on_message_from_harvester,
   on_get_plots, 
-} from "./harvester/index";
+} from "rolls-agent/src/api/ws/harvester";
 
 import type {
-  chia_wallet_service,
+  rolls_wallet_service,
   state_changed_command_of_wallet,
   TStateChangedBroadCastOfWallet,
-} from "./wallet/index";
+} from "rolls-agent/src/api/ws/wallet";
 export {
-  chia_wallet_service,
+  rolls_wallet_service,
   TChiaWalletBroadcast,
   TStateChangedBroadCastOfWallet,
   on_message_from_wallet,
   on_state_changed_of_wallet,
-} from "./wallet/index";
+} from "rolls-agent/src/api/ws/wallet";
 
 import type {
-  chia_plotter_service,
+  rolls_plotter_service,
   state_changed_command_of_plots,
   TStateChangedBroadCastOfPlots,
-} from "./chia_plots_create/index";
+} from "rolls-agent/src/api/ws/rolls_plots_create";
 export {
-  chia_plotter_service,
+  rolls_plotter_service,
   state_changed_command_of_plots,
   TStateChangedBroadCastOfPlots,
   on_state_changed_of_plots,
-} from "./chia_plots_create/index";
+} from "rolls-agent/src/api/ws/rolls_plots_create";
 
 import type {
   daemon_service,
@@ -125,7 +125,7 @@ import type {
   TNotifyKeyringMigrationCompletedResponse,
   TKeyringStatusChangedBroadCast,
   TValidateKeyringPassphraseResponse,
-} from "./daemon/index";
+} from "rolls-agent/src/api/ws/daemon";
 export {
   daemon_service,
   TRegisterServiceResponse, 
@@ -206,26 +206,26 @@ export {
   exit,
   on_keyring_status_changed,
   validate_keyring_passphrase,
-} from "./daemon/index";
+} from "rolls-agent/src/api/ws/daemon";
 
 
 export type WsFarmerMessage =
-  GetMessageType<chia_farmer_service, new_farming_info_command, TNewFarmingInfoBroadCast>
-  | GetMessageType<chia_farmer_service, new_signage_point_command, TNewSignagePointBroadCast>
-  | GetMessageType<chia_farmer_service, new_plots_command, TNewPlotsBroadCast>
+  GetMessageType<rolls_farmer_service, new_farming_info_command, TNewFarmingInfoBroadCast>
+  | GetMessageType<rolls_farmer_service, new_signage_point_command, TNewSignagePointBroadCast>
+  | GetMessageType<rolls_farmer_service, new_plots_command, TNewPlotsBroadCast>
   ;
 
 export type WsFullNodeMessage =
-  GetMessageType<chia_full_node_service, get_blockchain_state_command, TGetBlockchainStateBroadCast>;
+  GetMessageType<rolls_full_node_service, get_blockchain_state_command, TGetBlockchainStateBroadCast>;
 
 export type WsHarvesterMessage =
-  GetMessageType<chia_harvester_service, get_plots_command, TGetPlotsBroadCast>;
+  GetMessageType<rolls_harvester_service, get_plots_command, TGetPlotsBroadCast>;
 
 export type WsWalletMessage =
-  GetMessageType<chia_wallet_service, state_changed_command_of_wallet, TStateChangedBroadCastOfWallet>;
+  GetMessageType<rolls_wallet_service, state_changed_command_of_wallet, TStateChangedBroadCastOfWallet>;
 
 export type WsPlotsMessage =
-  GetMessageType<chia_plotter_service, state_changed_command_of_plots, TStateChangedBroadCastOfPlots>;
+  GetMessageType<rolls_plotter_service, state_changed_command_of_plots, TStateChangedBroadCastOfPlots>;
 
 export type WsDaemonMessage =
   GetMessageType<daemon_service, exit_command, TExitResponse>

@@ -156,14 +156,14 @@ See how to get Daemon instance before requesting Websocket API [**>>here**](../d
 
 Please note that Websocket APIs below is not request/response style but subscribe/listen style.  
 You cannot ask services to reply requested data immediately.  
-After subscribing message channels like `wallet_ui` or `chia_plotter`,
+After subscribing message channels like `wallet_ui` or `rolls_plotter`,
 you need to wait messages in the channel are arrived to your message listener.
 
 #### [daemon](./ws/daemon/README.md#usagesubscription)
 - [`keyring_status_changed`](./ws/daemon/README.md#on_keyring_status_changed)
 
-#### [chia_plots_create](./ws/chia_plots_create/README.md#usage)
-- [`state_changed`](./ws/chia_plots_create/README.md#on_state_changed_of_plots)
+#### [rolls_plots_create](./ws/rolls_plots_create/README.md#usage)
+- [`state_changed`](./ws/rolls_plots_create/README.md#on_state_changed_of_plots)
 
 #### [farmer](./ws/farmer/README.md#usage)
 - [`new_farming_info`](./ws/farmer/README.md#on_new_farming_info)
@@ -185,7 +185,7 @@ You can change log level to suppress/output various internal logs.
 ```js
 // Log level can be: "error", "warning", "info", "debug", "none"
 // Default log level is "error"
-const {setLogLevel} = require("chia-agent");
+const {setLogLevel} = require("rolls-agent");
 
 setLogLevel("debug"); // show all available logs.
 setLogLevel("info"); // show except for debug logs.

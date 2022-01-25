@@ -1,9 +1,9 @@
 import {Agent as HttpsAgent, request as httpsRequest, RequestOptions} from "https";
 import {Agent as HttpAgent, OutgoingHttpHeaders, request as httpRequest} from "http";
 import {existsSync, readFileSync} from "fs";
-import {getLogger} from "../logger";
-import {configPath as defaultConfigPath, getConfig, resolveFromChiaRoot, TConfig} from "../config/index";
-import {RpcMessage} from "../api/rpc/index";
+import {getLogger} from "rolls-agent/src/logger";
+import {configPath as defaultConfigPath, getConfig, resolveFromChiaRoot, TConfig} from "rolls-agent/src/config";
+import {RpcMessage} from "rolls-agent/src/api/rpc";
 
 type TDestination = "farmer"|"harvester"|"full_node"|"wallet"|"daemon"|"pool";
 
@@ -66,7 +66,7 @@ export type TRPCAgentProps = {
   configPath?: string;
 };
 
-const userAgent = "chia-agent/1.0.0";
+const userAgent = "rolls-agent/1.0.0";
 
 export class RPCAgent {
   protected _protocol: "http"|"https";
@@ -139,8 +139,8 @@ export class RPCAgent {
   protected _getConfig(configPath?: string){
     configPath = configPath || defaultConfigPath;
     if (!existsSync(configPath)) {
-      getLogger().error(`chia config file does not exist at: ${configPath}`)
-      throw new Error("chia config file Not Found.");
+      getLogger().error(`rolls config file does not exist at: ${configPath}`)
+      throw new Error("rolls config file Not Found.");
     }
   
     return getConfig(configPath);
@@ -189,7 +189,7 @@ export class RPCAgent {
         path: pathname,
         method: METHOD,
         agent: this._agent,
-        checkServerIdentity: () => undefined,
+        // checkServerIdentity: () => undefined,
         headers: {
           Accept: "application/json, text/plain, */*",
           "User-Agent": userAgent,

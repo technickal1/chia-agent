@@ -1,8 +1,8 @@
 import {readFileSync, existsSync} from "fs";
-import {getConfig, defaultDaemonCertPath, defaultDaemonKeyPath, getPathFromConfig} from "../config";
-import * as WS from "ws";
-import {OpenEvent} from "ws";
-import {getLogger} from "../logger";
+import {getConfig, defaultDaemonCertPath, defaultDaemonKeyPath, getPathFromConfig} from "rolls-agent/src/config";
+import * as WS from "rolls-agent/node_modules/@types/ws";
+import {OpenEvent} from "rolls-agent/node_modules/@types/ws";
+import {getLogger} from "rolls-agent/src/logger";
 
 function create(url: string) {
   const config = getConfig();

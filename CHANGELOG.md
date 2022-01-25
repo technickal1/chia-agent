@@ -3,18 +3,18 @@
 ## [3.0.0]
 ### Minor Breaking Change
 - Service name of plotter was changed:  
-  `chia plots create` => `chia_plotter`.  
+  `chia plots create` => `rolls_plotter`.  
   If you have a code which starts plotting via daemon websocket API, you might write like this:  
   ```typescript
-  const {getDaemon} = require("chia-agent");
-  const {start_plotting} = require("chia-agent/api/ws");
+  const {getDaemon} = require("rolls-agent");
+  const {start_plotting} = require("rolls-agent/api/ws");
   const daemon = getDaemon(); // This is the websocket connection handler
   await daemon.connect(); // connect to local daemon using config file.
   const response = await start_plotting(daemon, {service: "chia plots create", ...});
   ```
   On and after chia-blockchain@1.2.11, you must rewrite the last line of the above code like this:  
   ```typescript
-  const response = await start_plotting(daemon, {service: "chia_plotter", ...});
+  const response = await start_plotting(daemon, {service: "rolls_plotter", ...});
   ```
   Please note you need to also update other code lines which refers to old service name(`chia plots create`).
 ### Changed
@@ -59,7 +59,7 @@
 ### Deprecated
 - `did_spend`  
   Note: `chia-blockchain` no longer responds to `/did_spend` wallet API endpoint on and after 1.2.8.  
-  For now, I don't remove `/did_spend` from `chia-agent` but only remove from API document.
+  For now, I don't remove `/did_spend` from `rolls-agent` but only remove from API document.
 
 ## [2.0.4]
 This release corresponds to chia-blockchain@1.2.6, which introduced no external API changes.
@@ -143,7 +143,7 @@ I incremented major version. See "Changed" section for detail.
 ### Fixed
 - Fixed RPC API document links
 - Fixed the type of `SerializedProgram` to `str`
-- Fixed an issue where submodule could not be loaded. e.g. `const {...} = require("chia-agent/api/rpc");`
+- Fixed an issue where submodule could not be loaded. e.g. `const {...} = require("rolls-agent/api/rpc");`
 - Correct type name `TCreate_New_RC_WalletRequest/Response` to `TCreate_New_RL_WalletRequest/Response`
 - Fixed wrong `create_new_wallet` request format
 - Fixed an issue where array data in YAML file was not parsed as expected.
@@ -202,20 +202,20 @@ daemon.sendMessage(destination, get_block_record_by_height_command, data);
 ## [0.0.1] - 2021-05-13
 Initial release.
 
-<!-- [Unreleased]: https://github.com/Chia-Mine/chia-agent/compare/v0.0.1...v0.0.2 -->
-[3.0.0]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.6...v3.0.0
-[2.0.6]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.5...v2.0.6
-[2.0.5]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.4...v2.0.5
-[2.0.4]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.3...v2.0.4
-[2.0.3]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.2...v2.0.3
-[2.0.2]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.1...v2.0.2
-[2.0.1]: https://github.com/Chia-Mine/chia-agent/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/Chia-Mine/chia-agent/compare/v1.1.0...v2.0.0
-[1.1.0]: https://github.com/Chia-Mine/chia-agent/compare/v1.0.1...v1.1.0
-[1.0.1]: https://github.com/Chia-Mine/chia-agent/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/Chia-Mine/chia-agent/compare/v0.0.5...v1.0.0
-[0.0.5]: https://github.com/Chia-Mine/chia-agent/compare/v0.0.4...v0.0.5
-[0.0.4]: https://github.com/Chia-Mine/chia-agent/compare/v0.0.3...v0.0.4
-[0.0.3]: https://github.com/Chia-Mine/chia-agent/compare/v0.0.2...v0.0.3
-[0.0.2]: https://github.com/Chia-Mine/chia-agent/compare/v0.0.1...v0.0.2
-[0.0.1]: https://github.com/Chia-Mine/chia-agent/releases/tag/v0.0.1
+<!-- [Unreleased]: https://github.com/Chia-Mine/rolls-agent/compare/v0.0.1...v0.0.2 -->
+[3.0.0]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.6...v3.0.0
+[2.0.6]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.5...v2.0.6
+[2.0.5]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.4...v2.0.5
+[2.0.4]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.3...v2.0.4
+[2.0.3]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.2...v2.0.3
+[2.0.2]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/Chia-Mine/rolls-agent/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/Chia-Mine/rolls-agent/compare/v1.1.0...v2.0.0
+[1.1.0]: https://github.com/Chia-Mine/rolls-agent/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/Chia-Mine/rolls-agent/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/Chia-Mine/rolls-agent/compare/v0.0.5...v1.0.0
+[0.0.5]: https://github.com/Chia-Mine/rolls-agent/compare/v0.0.4...v0.0.5
+[0.0.4]: https://github.com/Chia-Mine/rolls-agent/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/Chia-Mine/rolls-agent/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/Chia-Mine/rolls-agent/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/Chia-Mine/rolls-agent/releases/tag/v0.0.1

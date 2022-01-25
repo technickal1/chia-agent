@@ -1,5 +1,5 @@
-import {WalletInfo} from "../../chia/wallet/wallet_info";
-import {Coin} from "../../chia/types/blockchain_format/coin";
+import {WalletInfo} from "rolls-agent/src/api/rolls/wallet/wallet_info";
+import {Coin} from "rolls-agent/src/api/rolls/types/blockchain_format/coin";
 import {
   bool,
   bytes,
@@ -12,17 +12,17 @@ import {
   uint32,
   uint64,
   uint8
-} from "../../chia/types/_python_types_";
-import {bytes32} from "../../chia/types/blockchain_format/sized_bytes";
-import {TransactionRecord} from "../../chia/wallet/transaction_record";
-import {SpendBundle} from "../../chia/types/spend_bundle";
-import {BackupInfo} from "../../chia/wallet/util/backup_utils";
-import {TRPCAgent} from "../../../rpc";
-import {PoolWalletInfo} from "../../chia/pools/pool_wallet_info";
-import {TradeRecordInJson} from "../../chia/wallet/util/trade_utils";
+} from "rolls-agent/src/api/rolls/types/_python_types_";
+import {bytes32} from "rolls-agent/src/api/rolls/types/blockchain_format/sized_bytes";
+import {TransactionRecord} from "rolls-agent/src/api/rolls/wallet/transaction_record";
+import {SpendBundle} from "rolls-agent/src/api/rolls/types/spend_bundle";
+import {BackupInfo} from "rolls-agent/src/api/rolls/wallet/util/backup_utils";
+import {TRPCAgent} from "rolls-agent/src/rpc";
+import {PoolWalletInfo} from "rolls-agent/src/api/rolls/pools/pool_wallet_info";
+import {TradeRecordInJson} from "rolls-agent/src/api/rolls/wallet/util/trade_utils";
 
-export const chia_wallet_service = "chia_wallet";
-export type chia_wallet_service = typeof chia_wallet_service;
+export const rolls_wallet_service = "rolls_wallet";
+export type rolls_wallet_service = typeof rolls_wallet_service;
 
 // # Key management
 
@@ -48,7 +48,7 @@ export type TLoginResponse = {
   backup_path: str; // Union[str, PathLike[str]]
 };
 export async function log_in(agent: TRPCAgent, data: TLoginRequest){
-  return agent.sendMessage<TLoginResponse>(chia_wallet_service, log_in_command, data);
+  return agent.sendMessage<TLoginResponse>(rolls_wallet_service, log_in_command, data);
 }
 
 
@@ -63,7 +63,7 @@ export type TGetPublicKeysResponse = {
   keyring_is_locked: True;
 };
 export async function get_public_keys(agent: TRPCAgent){
-  return agent.sendMessage<TGetPublicKeysResponse>(chia_wallet_service, get_public_keys_command);
+  return agent.sendMessage<TGetPublicKeysResponse>(rolls_wallet_service, get_public_keys_command);
 }
 
 
@@ -89,7 +89,7 @@ export type TGetPrivateKeyResponse = {
   };
 };
 export async function get_private_key(agent: TRPCAgent, data: TGetPrivateKeyRequest){
-  return agent.sendMessage<TGetPrivateKeyResponse>(chia_wallet_service, get_private_key_command, data);
+  return agent.sendMessage<TGetPrivateKeyResponse>(rolls_wallet_service, get_private_key_command, data);
 }
 
 
@@ -103,7 +103,7 @@ export type TGenerateMnemonicResponse = {
   mnemonic: str[];
 };
 export async function generate_mnemonic(agent: TRPCAgent){
-  return agent.sendMessage<TGenerateMnemonicResponse>(chia_wallet_service, generate_mnemonic_command);
+  return agent.sendMessage<TGenerateMnemonicResponse>(rolls_wallet_service, generate_mnemonic_command);
 }
 
 
@@ -127,7 +127,7 @@ export type TAddKeyResponse = {
   fingerprint: int;
 };
 export async function add_key(agent: TRPCAgent, data: TAddKeyRequest){
-  return agent.sendMessage<TAddKeyResponse>(chia_wallet_service, add_key_command, data);
+  return agent.sendMessage<TAddKeyResponse>(rolls_wallet_service, add_key_command, data);
 }
 
 
@@ -141,7 +141,7 @@ export type TDeleteKeyRequest = {
 export type TDeleteKeyResponse = {
 };
 export async function delete_key(agent: TRPCAgent, data: TDeleteKeyRequest){
-  return agent.sendMessage<TDeleteKeyResponse>(chia_wallet_service, delete_key_command, data);
+  return agent.sendMessage<TDeleteKeyResponse>(rolls_wallet_service, delete_key_command, data);
 }
 
 
@@ -159,7 +159,7 @@ export type TCheckDeleteKeyResponse = {
   wallet_balance: bool;
 };
 export async function check_delete_key(agent: TRPCAgent, data: TCheckDeleteKeyRequest){
-  return agent.sendMessage<TCheckDeleteKeyResponse>(chia_wallet_service, check_delete_key_command, data);
+  return agent.sendMessage<TCheckDeleteKeyResponse>(rolls_wallet_service, check_delete_key_command, data);
 }
 
 
@@ -175,7 +175,7 @@ export type TDeleteAllKeysResponse = {} | {
   error: str;
 };
 export async function delete_all_keys(agent: TRPCAgent){
-  return agent.sendMessage<TDeleteAllKeysResponse>(chia_wallet_service, delete_all_keys_command);
+  return agent.sendMessage<TDeleteAllKeysResponse>(rolls_wallet_service, delete_all_keys_command);
 }
 
 
@@ -192,7 +192,7 @@ export type TGetSyncStatusResponse = {
   genesis_initialized: bool;
 };
 export async function get_sync_status(agent: TRPCAgent){
-  return agent.sendMessage<TGetSyncStatusResponse>(chia_wallet_service, get_sync_status_command);
+  return agent.sendMessage<TGetSyncStatusResponse>(rolls_wallet_service, get_sync_status_command);
 }
 
 
@@ -205,7 +205,7 @@ export type TGetHeightInfoResponse = {
   height: uint32;
 };
 export async function get_height_info(agent: TRPCAgent){
-  return agent.sendMessage<TGetHeightInfoResponse>(chia_wallet_service, get_height_info_command);
+  return agent.sendMessage<TGetHeightInfoResponse>(rolls_wallet_service, get_height_info_command);
 }
 
 
@@ -218,7 +218,7 @@ export type TFarmBlockRequest = {
 export type TFarmBlockResponse = {
 };
 export async function farm_block(agent: TRPCAgent, data: TFarmBlockRequest){
-  return agent.sendMessage<TFarmBlockResponse>(chia_wallet_service, farm_block_command, data);
+  return agent.sendMessage<TFarmBlockResponse>(rolls_wallet_service, farm_block_command, data);
 }
 
 
@@ -231,7 +231,7 @@ export type TGetInitialFreezePeriodResponseOfWallet = {
   INITIAL_FREEZE_END_TIMESTAMP: 1620061200; // Mon May 03 2021 17:00:00 GMT+0000
 };
 export async function get_initial_freeze_period_of_wallet(agent: TRPCAgent){
-  return agent.sendMessage<TGetInitialFreezePeriodResponseOfWallet>(chia_wallet_service, get_initial_freeze_period_command_of_wallet);
+  return agent.sendMessage<TGetInitialFreezePeriodResponseOfWallet>(rolls_wallet_service, get_initial_freeze_period_command_of_wallet);
 }
 
 
@@ -245,7 +245,7 @@ export type TGetNetworkInfoResponseOfWallet = {
   network_prefix: str;
 };
 export async function get_network_info_of_wallet(agent: TRPCAgent){
-  return agent.sendMessage<TGetNetworkInfoResponseOfWallet>(chia_wallet_service, get_network_info_command_of_wallet);
+  return agent.sendMessage<TGetNetworkInfoResponseOfWallet>(rolls_wallet_service, get_network_info_command_of_wallet);
 }
 
 
@@ -259,7 +259,7 @@ export type TGetWalletsResponse = {
   wallets: WalletInfo[];
 };
 export async function get_wallets(agent: TRPCAgent){
-  return agent.sendMessage<TGetWalletsResponse>(chia_wallet_service, get_wallets_command);
+  return agent.sendMessage<TGetWalletsResponse>(rolls_wallet_service, get_wallets_command);
 }
 
 
@@ -379,7 +379,7 @@ export type create_new_wallet_command = typeof create_new_wallet_command;
 export type TCreateNewWalletRequest = TCreate_New_CC_WalletRequest | TCreate_New_RL_WalletRequest | TCreate_New_DID_WalletRequest | TCreate_New_Pool_WalletRequest;
 export type TCreateNewWalletResponse = TCreate_New_CC_WalletResponse | TCreate_New_RL_WalletResponse | TCreate_New_DID_WalletResponse | TCreate_New_Pool_WalletResponse;
 export async function create_new_wallet(agent: TRPCAgent, data: TCreateNewWalletRequest){
-  return agent.sendMessage<TCreateNewWalletResponse>(chia_wallet_service, create_new_wallet_command, data);
+  return agent.sendMessage<TCreateNewWalletResponse>(rolls_wallet_service, create_new_wallet_command, data);
 }
 
 
@@ -402,7 +402,7 @@ export type TGetWalletBalanceResponse = {
   };
 };
 export async function get_wallet_balance(agent: TRPCAgent, data: TGetWalletBalanceRequest){
-  return agent.sendMessage<TGetWalletBalanceResponse>(chia_wallet_service, get_wallet_balance_command, data);
+  return agent.sendMessage<TGetWalletBalanceResponse>(rolls_wallet_service, get_wallet_balance_command, data);
 }
 
 
@@ -417,7 +417,7 @@ export type TGetTransactionResponse = {
   transaction_id: TransactionRecord["name"];
 };
 export async function get_transaction(agent: TRPCAgent, data: TGetTransactionRequest){
-  return agent.sendMessage<TGetTransactionResponse>(chia_wallet_service, get_transaction_command, data);
+  return agent.sendMessage<TGetTransactionResponse>(rolls_wallet_service, get_transaction_command, data);
 }
 
 
@@ -435,7 +435,7 @@ export type TGetTransactionsResponse = {
   wallet_id: int;
 };
 export async function get_transactions(agent: TRPCAgent, data: TGetTransactionsRequest){
-  return agent.sendMessage<TGetTransactionsResponse>(chia_wallet_service, get_transactions_command, data);
+  return agent.sendMessage<TGetTransactionsResponse>(rolls_wallet_service, get_transactions_command, data);
 }
 
 
@@ -452,7 +452,7 @@ export type TGetNextAddressResponse = {
   address: str;
 };
 export async function get_next_address(agent: TRPCAgent, data: TGetNextAddressRequest){
-  return agent.sendMessage<TGetNextAddressResponse>(chia_wallet_service, get_next_address_command, data);
+  return agent.sendMessage<TGetNextAddressResponse>(rolls_wallet_service, get_next_address_command, data);
 }
 
 
@@ -471,7 +471,7 @@ export type TSendTransactionResponse = {
   transaction_id: TransactionRecord["name"];
 };
 export async function send_transaction(agent: TRPCAgent, data: TSendTransactionRequest){
-  return agent.sendMessage<TSendTransactionResponse>(chia_wallet_service, send_transaction_command, data);
+  return agent.sendMessage<TSendTransactionResponse>(rolls_wallet_service, send_transaction_command, data);
 }
 
 
@@ -490,7 +490,7 @@ export type TSendTransactionMultiResponse = {
   transaction_id: TransactionRecord["name"];
 };
 export async function send_transaction_multi(agent: TRPCAgent, data: TSendTransactionMultiRequest){
-  return agent.sendMessage<TSendTransactionMultiResponse>(chia_wallet_service, send_transaction_multi_command, data);
+  return agent.sendMessage<TSendTransactionMultiResponse>(rolls_wallet_service, send_transaction_multi_command, data);
 }
 
 
@@ -504,7 +504,7 @@ export type TCreateBackupRequest = {
 export type TCreateBackupResponse = {
 };
 export async function create_backup(agent: TRPCAgent, data: TCreateBackupRequest){
-  return agent.sendMessage<TCreateBackupResponse>(chia_wallet_service, create_backup_command, data);
+  return agent.sendMessage<TCreateBackupResponse>(rolls_wallet_service, create_backup_command, data);
 }
 
 
@@ -520,7 +520,7 @@ export type TGetTransactionCountResponse = {
   count: int;
 };
 export async function get_transaction_count(agent: TRPCAgent, data: TGetTransactionCountRequest){
-  return agent.sendMessage<TGetTransactionCountResponse>(chia_wallet_service, get_transaction_count_command, data);
+  return agent.sendMessage<TGetTransactionCountResponse>(rolls_wallet_service, get_transaction_count_command, data);
 }
 
 
@@ -538,7 +538,7 @@ export type TGetFarmedAmountResponse = {
   last_height_farmed: int;
 };
 export async function get_farmed_amount(agent: TRPCAgent){
-  return agent.sendMessage<TGetFarmedAmountResponse>(chia_wallet_service, get_farmed_amount_command);
+  return agent.sendMessage<TGetFarmedAmountResponse>(rolls_wallet_service, get_farmed_amount_command);
 }
 
 
@@ -559,7 +559,7 @@ export type TCreateSignedTransactionResponse = {
   signed_tx: TransactionRecord;
 };
 export async function create_signed_transaction(agent: TRPCAgent, data: TCreateSignedTransactionRequest){
-  return agent.sendMessage<TCreateSignedTransactionResponse>(chia_wallet_service, create_signed_transaction_command, data);
+  return agent.sendMessage<TCreateSignedTransactionResponse>(rolls_wallet_service, create_signed_transaction_command, data);
 }
 
 
@@ -573,7 +573,7 @@ export type TDeleteUnconfirmedTransactionsRequest = {
 export type TDeleteUnconfirmedTransactionsResponse = {
 };
 export async function delete_unconfirmed_transactions(agent: TRPCAgent, data: TDeleteUnconfirmedTransactionsRequest){
-  return agent.sendMessage<TDeleteUnconfirmedTransactionsResponse>(chia_wallet_service, delete_unconfirmed_transactions_command, data);
+  return agent.sendMessage<TDeleteUnconfirmedTransactionsResponse>(rolls_wallet_service, delete_unconfirmed_transactions_command, data);
 }
 
 
@@ -590,7 +590,7 @@ export type TCcSetNameResponse = {
   wallet_id: int;
 };
 export async function cc_set_name(agent: TRPCAgent, data: TCcSetNameRequest){
-  return agent.sendMessage<TCcSetNameResponse>(chia_wallet_service, cc_set_name_command, data);
+  return agent.sendMessage<TCcSetNameResponse>(rolls_wallet_service, cc_set_name_command, data);
 }
 
 
@@ -606,7 +606,7 @@ export type TCcGetNameResponse = {
   name: str;
 };
 export async function cc_get_name(agent: TRPCAgent, data: TCcGetNameRequest){
-  return agent.sendMessage<TCcGetNameResponse>(chia_wallet_service, cc_get_name_command, data);
+  return agent.sendMessage<TCcGetNameResponse>(rolls_wallet_service, cc_get_name_command, data);
 }
 
 
@@ -625,7 +625,7 @@ export type TCcSpendResponse = {
   transaction_id: TransactionRecord["name"];
 };
 export async function cc_spend(agent: TRPCAgent, data: TCcSpendRequest){
-  return agent.sendMessage<TCcSpendResponse>(chia_wallet_service, cc_spend_command, data);
+  return agent.sendMessage<TCcSpendResponse>(rolls_wallet_service, cc_spend_command, data);
 }
 
 
@@ -641,7 +641,7 @@ export type TCcGetColourResponse = {
   wallet_id: int;
 };
 export async function cc_get_colour(agent: TRPCAgent, data: TCcGetColourRequest){
-  return agent.sendMessage<TCcGetColourResponse>(chia_wallet_service, cc_get_colour_command, data);
+  return agent.sendMessage<TCcGetColourResponse>(rolls_wallet_service, cc_get_colour_command, data);
 }
 
 
@@ -656,7 +656,7 @@ export type TCreateOfferForIdsRequest = {
 export type TCreateOfferForIdsResponse = {
 };
 export async function create_offer_for_ids(agent: TRPCAgent, data: TCreateOfferForIdsRequest){
-  return agent.sendMessage<TCreateOfferForIdsResponse>(chia_wallet_service, create_offer_for_ids_command, data);
+  return agent.sendMessage<TCreateOfferForIdsResponse>(rolls_wallet_service, create_offer_for_ids_command, data);
 }
 
 
@@ -671,7 +671,7 @@ export type TGetDiscrepanciesForOfferResponse = {
   discrepancies: Optional<Record<str, int>>; // {[colour: string]: int(amount)}
 };
 export async function get_discrepancies_for_offer(agent: TRPCAgent, data: TGetDiscrepanciesForOfferRequest){
-  return agent.sendMessage<TGetDiscrepanciesForOfferResponse>(chia_wallet_service, get_discrepancies_for_offer_command, data);
+  return agent.sendMessage<TGetDiscrepanciesForOfferResponse>(rolls_wallet_service, get_discrepancies_for_offer_command, data);
 }
 
 
@@ -685,7 +685,7 @@ export type TResponseToOfferRequest = {
 export type TResponseToOfferResponse = {
 };
 export async function respond_to_offer(agent: TRPCAgent, data: TResponseToOfferRequest){
-  return agent.sendMessage<TResponseToOfferResponse>(chia_wallet_service, respond_to_offer_command, data);
+  return agent.sendMessage<TResponseToOfferResponse>(rolls_wallet_service, respond_to_offer_command, data);
 }
 
 
@@ -700,7 +700,7 @@ export type TGetTradeResponse = {
   trade: TradeRecordInJson;
 };
 export async function get_trade(agent: TRPCAgent, data: TGetTradeRequest){
-  return agent.sendMessage<TGetTradeResponse>(chia_wallet_service, get_trade_command, data);
+  return agent.sendMessage<TGetTradeResponse>(rolls_wallet_service, get_trade_command, data);
 }
 
 
@@ -714,7 +714,7 @@ export type TGetAllTradesResponse = {
   trades: TradeRecordInJson[];
 };
 export async function get_all_trades(agent: TRPCAgent){
-  return agent.sendMessage<TGetAllTradesResponse>(chia_wallet_service, get_all_trades_command);
+  return agent.sendMessage<TGetAllTradesResponse>(rolls_wallet_service, get_all_trades_command);
 }
 
 
@@ -729,7 +729,7 @@ export type TCancelTradeRequest = {
 export type TCancelTradeResponse = {
 };
 export async function cancel_trade(agent: TRPCAgent, data: TCancelTradeRequest){
-  return agent.sendMessage<TCancelTradeResponse>(chia_wallet_service, cancel_trade_command, data);
+  return agent.sendMessage<TCancelTradeResponse>(rolls_wallet_service, cancel_trade_command, data);
 }
 
 
@@ -747,7 +747,7 @@ export type TDidUpdateRecoveryIdsResponse = {
   success: bool;
 };
 export async function did_update_recovery_ids(agent: TRPCAgent, data: TDidUpdateRecoveryIdsRequest){
-  return agent.sendMessage<TDidUpdateRecoveryIdsResponse>(chia_wallet_service, did_update_recovery_ids_command, data);
+  return agent.sendMessage<TDidUpdateRecoveryIdsResponse>(rolls_wallet_service, did_update_recovery_ids_command, data);
 }
 
 
@@ -763,8 +763,8 @@ export type TDidSpendResponse = {
   success: bool;
 };
 export async function did_spend(agent: TRPCAgent, data: TDidSpendRequest){
-  console.warn("did_spend was deprecated at chia-blockchain@1.2.8.");
-  return agent.sendMessage<TDidSpendResponse>(chia_wallet_service, did_spend_command, data);
+  console.warn("did_spend was deprecated at rolls-blockchain@1.2.8.");
+  return agent.sendMessage<TDidSpendResponse>(rolls_wallet_service, did_spend_command, data);
 }
 
 
@@ -780,7 +780,7 @@ export type TDidGetPubkeyResponse = {
   pubkey: bytes;
 };
 export async function did_get_pubkey(agent: TRPCAgent){
-  return agent.sendMessage<TDidGetPubkeyResponse>(chia_wallet_service, did_get_pubkey_command);
+  return agent.sendMessage<TDidGetPubkeyResponse>(rolls_wallet_service, did_get_pubkey_command);
 }
 
 
@@ -798,7 +798,7 @@ export type TDidGetDidResponse = {
   coin_id?: bytes32;
 };
 export async function did_get_did(agent: TRPCAgent, data: TDidGetDidRequest){
-  return agent.sendMessage<TDidGetDidResponse>(chia_wallet_service, did_get_did_command, data);
+  return agent.sendMessage<TDidGetDidResponse>(rolls_wallet_service, did_get_did_command, data);
 }
 
 
@@ -816,7 +816,7 @@ export type TDidRecoverySpendResponse = {
   success: SpendBundle;
 };
 export async function did_recovery_spend(agent: TRPCAgent, data: TDidRecoverySpendRequest){
-  return agent.sendMessage<TDidRecoverySpendResponse>(chia_wallet_service, did_recovery_spend_command, data);
+  return agent.sendMessage<TDidRecoverySpendResponse>(rolls_wallet_service, did_recovery_spend_command, data);
 }
 
 
@@ -834,7 +834,7 @@ export type TDidGetRecoveryListResponse = {
   num_required: uint64;
 };
 export async function did_get_recovery_list(agent: TRPCAgent, data: TDidGetRecoveryListRequest){
-  return agent.sendMessage<TDidGetRecoveryListResponse>(chia_wallet_service, did_get_recovery_list_command, data);
+  return agent.sendMessage<TDidGetRecoveryListResponse>(rolls_wallet_service, did_get_recovery_list_command, data);
 }
 
 
@@ -856,7 +856,7 @@ export type TDidCreateAttestResponse = {
   success: False;
 };
 export async function did_create_attest(agent: TRPCAgent, data: TDidCreateAttestRequest){
-  return agent.sendMessage<TDidCreateAttestResponse>(chia_wallet_service, did_create_attest_command, data);
+  return agent.sendMessage<TDidCreateAttestResponse>(rolls_wallet_service, did_create_attest_command, data);
 }
 
 
@@ -876,7 +876,7 @@ export type TDidGetInformationNeededForRecoveryResponse = {
   backup_dids: bytes[];
 };
 export async function did_get_information_needed_for_recovery(agent: TRPCAgent, data: TDidGetInformationNeededForRecoveryRequest){
-  return agent.sendMessage<TDidGetInformationNeededForRecoveryResponse>(chia_wallet_service, did_get_information_needed_for_recovery_command, data);
+  return agent.sendMessage<TDidGetInformationNeededForRecoveryResponse>(rolls_wallet_service, did_get_information_needed_for_recovery_command, data);
 }
 
 
@@ -893,7 +893,7 @@ export type TDidCreateBackupFileResponse = {
   success: bool;
 };
 export async function did_create_backup_file(agent: TRPCAgent, data: TDidCreateBackupFileRequest){
-  return agent.sendMessage<TDidCreateBackupFileResponse>(chia_wallet_service, did_create_backup_file_command, data);
+  return agent.sendMessage<TDidCreateBackupFileResponse>(rolls_wallet_service, did_create_backup_file_command, data);
 }
 
 
@@ -916,7 +916,7 @@ export type TRlSetUserInfoRequest = {
 export type TRlSetUserInfoResponse = {
 };
 export async function rl_set_user_info(agent: TRPCAgent, data: TRlSetUserInfoRequest){
-  return agent.sendMessage<TRlSetUserInfoResponse>(chia_wallet_service, rl_set_user_info_command, data);
+  return agent.sendMessage<TRlSetUserInfoResponse>(rolls_wallet_service, rl_set_user_info_command, data);
 }
 
 
@@ -933,7 +933,7 @@ export type TSendClawbackTransactionResponse = {
   transaction_id: TransactionRecord["name"];
 };
 export async function send_clawback_transaction(agent: TRPCAgent, data: TSendClawbackTransactionRequest){
-  return agent.sendMessage<TSendClawbackTransactionResponse>(chia_wallet_service, send_clawback_transaction_command, data);
+  return agent.sendMessage<TSendClawbackTransactionResponse>(rolls_wallet_service, send_clawback_transaction_command, data);
 }
 
 
@@ -950,7 +950,7 @@ export type TAddRateLimitedFundsResponse = {
   status: "SUCCESS";
 };
 export async function add_rate_limited_funds(agent: TRPCAgent, data: TAddRateLimitedFundsRequest){
-  return agent.sendMessage<TAddRateLimitedFundsResponse>(chia_wallet_service, add_rate_limited_funds_command, data);
+  return agent.sendMessage<TAddRateLimitedFundsResponse>(rolls_wallet_service, add_rate_limited_funds_command, data);
 }
 
 
@@ -973,7 +973,7 @@ export type TPwJoinPoolResponse = {
   error: "not_initialized";
 };
 export async function pw_join_pool(agent: TRPCAgent, data: TPwJoinPoolRequest){
-  return agent.sendMessage<TPwJoinPoolResponse>(chia_wallet_service, pw_join_pool_command, data);
+  return agent.sendMessage<TPwJoinPoolResponse>(rolls_wallet_service, pw_join_pool_command, data);
 }
 
 
@@ -993,7 +993,7 @@ export type TPwSelfPoolResponse = {
   error: "not_initialized";
 };
 export async function pw_self_pool(agent: TRPCAgent, data: TPwSelfPoolRequest){
-  return agent.sendMessage<TPwSelfPoolResponse>(chia_wallet_service, pw_self_pool_command, data);
+  return agent.sendMessage<TPwSelfPoolResponse>(rolls_wallet_service, pw_self_pool_command, data);
 }
 
 
@@ -1013,7 +1013,7 @@ export type TPwAbsorbRewardsResponse = {
   error: "not_initialized";
 };
 export async function pw_absorb_rewards(agent: TRPCAgent, data: TPwAbsorbRewardsRequest){
-  return agent.sendMessage<TPwAbsorbRewardsResponse>(chia_wallet_service, pw_absorb_rewards_command, data);
+  return agent.sendMessage<TPwAbsorbRewardsResponse>(rolls_wallet_service, pw_absorb_rewards_command, data);
 }
 
 
@@ -1032,5 +1032,5 @@ export type TPwStatusResponse = {
   error: "not_initialized";
 };
 export async function pw_status(agent: TRPCAgent, data: TPwStatusRequest){
-  return agent.sendMessage<TPwStatusResponse>(chia_wallet_service, pw_status_command, data);
+  return agent.sendMessage<TPwStatusResponse>(rolls_wallet_service, pw_status_command, data);
 }

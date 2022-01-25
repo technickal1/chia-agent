@@ -7,7 +7,7 @@ You can modify this script to develop more complex plotter program.
 ```shell
 cd <Wherever directory you want>
 npm init . # or 'yarn init . -y'
-npm install chia-agent # or 'yarn add chia-agent'
+npm install rolls-agent # or 'yarn add rolls-agent'
 ```
 
 Create `index.js` in the directory shown above. 
@@ -20,7 +20,7 @@ main().catch(e => {
 
 function createPlotOption(opt){
   return {
-    service: "chia_plotter",
+    service: "rolls_plotter",
     delay: ((opt.delay || 0)*60), // delay in seconds
     parallel: false, // parallel or serialize
     k: 32, // size
@@ -44,8 +44,8 @@ function createPlotOption(opt){
 
 async function main(){
   const path = require("path");
-  const {setLogLevel, getDaemon} = require("chia-agent");
-  const {start_plotting} = require("chia-agent/api/ws/daemon");
+  const {setLogLevel, getDaemon} = require("rolls-agent");
+  const {start_plotting} = require("rolls-agent/api/ws/daemon");
 
   setLogLevel("debug"); // none/error/warning/info/debug is available.
 
@@ -56,14 +56,14 @@ async function main(){
   // MODIFY Plotter params here
   ////////////////////////////////
   const jobConfigs = [
-    {t: path.resolve("D:", "chia_plot"), d: path.resolve("S:"), r: 3, q: "S1", n: 1, delay: 0},
-    {t: path.resolve("D:", "chia_plot"), d: path.resolve("T:"), r: 2, q: "T1", n: 1, delay: 30},
-    {t: path.resolve("D:", "chia_plot"), d: path.resolve("S:"), r: 3, q: "S2", n: 1, delay: 0},
-    {t: path.resolve("D:", "chia_plot"), d: path.resolve("T:"), r: 2, q: "T2", n: 1, delay: 30},
-    {t: path.resolve("E:", "chia_plot"), d: path.resolve("S:"), r: 3, q: "S3", n: 1, delay: 0},
-    {t: path.resolve("E:", "chia_plot"), d: path.resolve("T:"), r: 2, q: "T3", n: 1, delay: 30},
-    {t: path.resolve("E:", "chia_plot"), d: path.resolve("S:"), r: 3, q: "S4", n: 1, delay: 0},
-    {t: path.resolve("E:", "chia_plot"), d: path.resolve("T:"), r: 2, q: "T4", n: 1, delay: 30},
+    {t: path.resolve("D:", "rolls_plot"), d: path.resolve("S:"), r: 3, q: "S1", n: 1, delay: 0},
+    {t: path.resolve("D:", "rolls_plot"), d: path.resolve("T:"), r: 2, q: "T1", n: 1, delay: 30},
+    {t: path.resolve("D:", "rolls_plot"), d: path.resolve("S:"), r: 3, q: "S2", n: 1, delay: 0},
+    {t: path.resolve("D:", "rolls_plot"), d: path.resolve("T:"), r: 2, q: "T2", n: 1, delay: 30},
+    {t: path.resolve("E:", "rolls_plot"), d: path.resolve("S:"), r: 3, q: "S3", n: 1, delay: 0},
+    {t: path.resolve("E:", "rolls_plot"), d: path.resolve("T:"), r: 2, q: "T3", n: 1, delay: 30},
+    {t: path.resolve("E:", "rolls_plot"), d: path.resolve("S:"), r: 3, q: "S4", n: 1, delay: 0},
+    {t: path.resolve("E:", "rolls_plot"), d: path.resolve("T:"), r: 2, q: "T4", n: 1, delay: 30},
   ];
 
   let error;
@@ -111,7 +111,7 @@ Specify host and port of remote server to `daemon.connect` function as below.
 # Cancel plotting
 Check target task's uuid in plotter log file name. 
 ```shell
-ls -l $CHIA_HOME/plotter
+ls -l $rolls_HOME/plotter
 ```
 You can find a bunch of plotter log files like:  
 `plotter_log_0cda2be3-88c7-4f9a-ab06-b3dcc5130aac.txt`  
@@ -126,8 +126,8 @@ main().catch(e => {
 
 async function main(){
   const path = require("path");
-  const {setLogLevel, getDaemon} = require("chia-agent");
-  const {stop_plotting} = require("chia-agent/api/ws/daemon");
+  const {setLogLevel, getDaemon} = require("rolls-agent");
+  const {stop_plotting} = require("rolls-agent/api/ws/daemon");
 
   setLogLevel("debug"); // none/error/warning/info/debug is available.
 
@@ -196,14 +196,14 @@ pool public key: `0fc10e05716f56b665d3692dc9f09e3f2d14868a479fdccaee02e1357a0337
 Then just copy and paste those strings as values of `-f`/`-p` options.
 ```js
   const plot_option = {
-    service: "chia_plotter",
+    service: "rolls_plotter",
     delay: 0, // delay in seconds
     parallel: false, // parallel or serialize
     k: 33, // size
     n: 1, // count of creating plot
     queue: "default", // queue name
-    t: path.resolve("Z:", "chia_plots"), // tmp dir. Adjust this for your environment.
-    t2: path.resolve("Z:", "chia_plots"), // tmp dir 2. Adjust this for your environment.
+    t: path.resolve("Z:", "rolls_plots"), // tmp dir. Adjust this for your environment.
+    t2: path.resolve("Z:", "rolls_plots"), // tmp dir 2. Adjust this for your environment.
     d: path.resolve("E:"), // final dir. Adjust this for your environment.
     b: 4600, // memory buffer size
     u: 128, // number of buckets

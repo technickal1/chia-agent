@@ -1,5 +1,5 @@
-const {RPCAgent, setLogLevel} = require("chia-agent");
-const {get_block_record_by_height} = require("chia-agent/api/rpc");
+const {RPCAgent, setLogLevel} = require("rolls-agent");
+const {get_block_record_by_height} = require("rolls-agent/api/rpc");
 
 main().catch(e => {
   console.error(e);

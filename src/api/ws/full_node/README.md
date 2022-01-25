@@ -1,18 +1,18 @@
 # Websocket Message from Full Node service
 
 ### `on_message_from_full_node`
-Capture all broadcast messages coming from `chia_full_node` service.
+Capture all broadcast messages coming from `rolls_full_node` service.
 
 #### Usage
 You need to create Websocket connection before subscribing websocket messages.
 ```js
-const {getDaemon} = require("chia-agent");
-const {on_message_from_full_node} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_message_from_full_node} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon(); // This is the websocket connection handler
 await daemon.connect(); // connect to local daemon using config file.
 
-// Capture all messages from `chia_full_node`
+// Capture all messages from `rolls_full_node`
 const unsubscribe = await on_message_from_full_node(daemon, (event) => {
   console.log(e.data);
 
@@ -27,12 +27,12 @@ const unsubscribe = await on_message_from_full_node(daemon, (event) => {
 ---
 
 ### `on_get_blockchain_state`
-Capture broadcast message of command `get_blockchain_state` from `chia_full_node` service.
+Capture broadcast message of command `get_blockchain_state` from `rolls_full_node` service.
 
 #### Usage
 ```typescript
-const {getDaemon} = require("chia-agent");
-const {on_get_blockchain_state} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_get_blockchain_state} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon();
 await daemon.connect();
@@ -47,7 +47,7 @@ unsubscribe(); // Stop subscribing messages
 #### event:
 ```typescript
 {
-  origin: "chia_full_node";
+  origin: "rolls_full_node";
   command: "get_blockchain_state";
   ack: boolean;
   data: /*See below*/;

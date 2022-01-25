@@ -2,14 +2,14 @@
 
 ---
 
-# chia-agent
-[![npm version](https://badge.fury.io/js/chia-agent.svg)](https://badge.fury.io/js/chia-agent) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# rolls-agent
+[![npm version](https://badge.fury.io/js/rolls-agent.svg)](https://badge.fury.io/js/rolls-agent) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 chia rpc/websocket client library for NodeJS.  
 Supports all RPC/Websocket API available at `chia 1.2.11`.  
-\(If you need previous version, search for the corresponding release [here](https://github.com/Chia-Mine/chia-agent/releases)\)
+\(If you need previous version, search for the corresponding release [here](https://github.com/Chia-Mine/rolls-agent/releases)\)
 
-you can develop your own nodejs script with `chia-agent` to:
+you can develop your own nodejs script with `rolls-agent` to:
 - retrieve latest data from RPC servers like `farmer`, `harvester`, `full_node`, `wallet`, `pool`.
 - send email when proof is found.
 - trigger scripts when target event is observed.
@@ -19,9 +19,9 @@ you can develop your own nodejs script with `chia-agent` to:
 
 ## Install
 ```
-npm install chia-agent
+npm install rolls-agent
 # or
-yarn add chia-agent
+yarn add rolls-agent
 ```
 
 ## Compatibility
@@ -41,8 +41,8 @@ RPC API is used to send message directly to chia services like `farmer`, `harves
 RPC API is just an async function in a traditional request/response style.
 
 ```js
-const {RPCAgent, setLogLevel} = require("chia-agent");
-const {get_plots} = require("chia-agent/api/rpc");
+const {RPCAgent, setLogLevel} = require("rolls-agent");
+const {get_plots} = require("rolls-agent/api/rpc");
 setLogLevel("debug");
 
 const agent = new RPCAgent({
@@ -76,8 +76,8 @@ or capture various broadcast messages like:
 - Farming info such as passed filter, proofs found, etc.
 
 ```js
-const {getDaemon, setLogLevel} = require("chia-agent");
-const {on_new_farming_info} = require("chia-agent/api/ws");
+const {getDaemon, setLogLevel} = require("rolls-agent");
+const {on_new_farming_info} = require("rolls-agent/api/ws");
 
 setLogLevel("debug");
 
@@ -109,22 +109,22 @@ setTimeout(async () => {
 ```
 
 ## API Reference
-[See Documentation here](https://github.com/Chia-Mine/chia-agent/blob/main/src/api/README.md)
+[See Documentation here](https://github.com/Chia-Mine/rolls-agent/blob/main/src/api/README.md)
 
 ## Examples
-[See documentation here](https://github.com/Chia-Mine/chia-agent/blob/main/example)
+[See documentation here](https://github.com/Chia-Mine/rolls-agent/blob/main/example)
 
 Here are some of those examples
-- [Send email when proof is found](https://github.com/Chia-Mine/chia-agent/blob/main/example/send_email_when_proof_is_found)
-- [RPC API code sample to show block record in certain height](https://github.com/Chia-Mine/chia-agent/blob/main/example/get_block_by_height)
-- [Create multiple plots with javascript](https://github.com/Chia-Mine/chia-agent/blob/main/example/create_plots)
+- [Send email when proof is found](https://github.com/Chia-Mine/rolls-agent/blob/main/example/send_email_when_proof_is_found)
+- [RPC API code sample to show block record in certain height](https://github.com/Chia-Mine/rolls-agent/blob/main/example/get_block_by_height)
+- [Create multiple plots with javascript](https://github.com/Chia-Mine/rolls-agent/blob/main/example/create_plots)
 
 ## Build from source
 Once source files is build by `npm run build:prod`, files will be output to `/dist` directory.  
 Then the files/directories are published to npm registry.  
 Please note it does not upload files in project root to npm registry, but files inside '/dist'.
 
-[Read details here](https://github.com/Chia-Mine/chia-agent/blob/main/BUILD.md)
+[Read details here](https://github.com/Chia-Mine/rolls-agent/blob/main/BUILD.md)
 
 ## Donation
 For continuous development, please support me with donation

@@ -1,12 +1,12 @@
-import type {CloseEvent, ErrorEvent, MessageEvent, OpenEvent} from "ws";
-import * as WS from "ws";
+import type {CloseEvent, ErrorEvent, MessageEvent, OpenEvent} from "rolls-agent/node_modules/@types/ws";
+import * as WS from "rolls-agent/node_modules/@types/ws";
 import {randomBytes} from "crypto";
-import {getLogger} from "../logger";
-import {open} from "./connection";
-import {getConfig} from "../config/index";
-import {daemon_service, TRegisterServiceResponse, WsMessage} from "../api/ws";
-import {register_service_command} from "../api/ws/daemon";
-import {GetMessageType} from "../api/types";
+import {getLogger} from "rolls-agent/src/logger";
+import {open} from "rolls-agent/src/daemon/connection";
+import {getConfig} from "rolls-agent/src/config";
+import {daemon_service, TRegisterServiceResponse, WsMessage} from "rolls-agent/src/api/ws";
+import {register_service_command} from "rolls-agent/src/api/ws/daemon";
+import {GetMessageType} from "rolls-agent/src/api/types";
 
 export type EventType = "open" | "message" | "error" | "close";
 export type Event = OpenEvent | MessageEvent | ErrorEvent | CloseEvent;
@@ -20,7 +20,7 @@ type EventListenerOf<T> =
 
 export type MessageListener<D extends WsMessage> = (msg: D) => unknown;
 
-const chia_agent_service = "chia_agent";
+const rolls_agent_service = "rolls_agent";
 
 let daemon: Daemon|null = null;
 
@@ -155,7 +155,7 @@ class Daemon {
       command,
       data,
       ack: false,
-      origin: chia_agent_service,
+      origin: rolls_agent_service,
       destination,
       request_id: randomBytes(32).toString("hex"),
     };
@@ -173,7 +173,7 @@ class Daemon {
         data: { success: true },
         ack: true,
         origin: "daemon",
-        destination: chia_agent_service,
+        destination: rolls_agent_service,
         request_id: "",
       };
     }
@@ -243,7 +243,7 @@ class Daemon {
   
   /**
    * Add listener for message
-   * @param {string} origin - Can be chia_farmer, chia_full_node, chia_wallet, etc.
+   * @param {string} origin - Can be rolls_farmer, rolls_full_node, rolls_wallet, etc.
    * @param listener - Triggered when a message arrives.
    */
   public addMessageListener<D extends WsMessage>(origin: string|undefined, listener: MessageListener<D>){
@@ -281,7 +281,7 @@ class Daemon {
     this._connectedUrl = url;
     this._openEventListeners.forEach(l => l(event));
   
-    return this.subscribe(chia_agent_service);
+    return this.subscribe(rolls_agent_service);
   }
   
   protected onError(error: ErrorEvent){
@@ -317,7 +317,7 @@ class Daemon {
     if(this._socket){
       this._socket.removeEventListener("error", this.onError);
       this._socket.removeEventListener("message", this.onMessage);
-      this._socket.removeEventListener("close", this.onClose);
+      // this._socket.removeEventListener("close", this.onClose);
       this._socket = null;
     }
     

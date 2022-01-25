@@ -1,18 +1,18 @@
 # Websocket Message from Harvester service
 
 ### `on_message_from_harvester`
-Capture all broadcast messages coming from `chia_harvester` service.
+Capture all broadcast messages coming from `rolls_harvester` service.
 
 #### Usage
 You need to create Websocket connection before subscribing websocket messages.
 ```js
-const {getDaemon} = require("chia-agent");
-const {on_message_from_harvester} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_message_from_harvester} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon(); // This is the websocket connection handler
 await daemon.connect(); // connect to local daemon using config file.
 
-// Capture all messages from `chia_harvester`
+// Capture all messages from `rolls_harvester`
 const unsubscribe = await on_message_from_harvester(daemon, (event) => {
   console.log(e.data);
 
@@ -27,12 +27,12 @@ const unsubscribe = await on_message_from_harvester(daemon, (event) => {
 ---
 
 ### `on_get_plots`
-Capture broadcast message of command `get_plots` from `chia_harvester` service.
+Capture broadcast message of command `get_plots` from `rolls_harvester` service.
 
 #### Usage
 ```typescript
-const {getDaemon} = require("chia-agent");
-const {on_get_plots} = require("chia-agent/api/ws");
+const {getDaemon} = require("rolls-agent");
+const {on_get_plots} = require("rolls-agent/api/ws");
 
 const daemon = getDaemon();
 await daemon.connect();
@@ -47,7 +47,7 @@ unsubscribe(); // Stop subscribing messages
 #### event:
 ```typescript
 {
-  origin: "chia_harvester";
+  origin: "rolls_harvester";
   command: "get_plots";
   ack: boolean;
   data: /*See below*/;
@@ -64,4 +64,4 @@ unsubscribe(); // Stop subscribing messages
 }
 ```
 For content of `Plot`,  
-see https://github.com/Chia-Mine/chia-agent/blob/main/src/api/chia/harvester/harvester.ts
+see https://github.com/Chia-Mine/rolls-agent/blob/main/src/api/chia/harvester/harvester.ts
